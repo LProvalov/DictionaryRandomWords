@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:RandomWordsApp;assembly=RandomWordsApp"
+             x:Class="RandomWordsApp.WordWithTranslationPage"
+             Title="Dictionary">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="70"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" Grid.Column="0">
+                    <Entry x:Name="rusEntry" Placeholder="Rus" Text="{Binding Rus}" 
+                       IsEnabled="{Binding IsRusEntryEnabled}"></Entry>
+                    <Button x:Name="rusClearButton" Text="X"
+                            IsEnabled="{Binding IsRusEntryEnabled}" 
+                            Command="{Binding ClearRusEntryCommand}"></Button>
+                </StackLayout>
+                <StackLayout Grid.Row="0" Grid.Column="1">
+                    <Entry x:Name="engEntry" Placeholder="Eng" Text="{Binding Eng}"
+                        IsEnabled="{Binding IsEngEntryEnabled}"></Entry>
+                    <Button x:Name="engClearButton" Text="X"
+                            IsEnabled="{Binding IsEngEntryEnabled}"
+                            Command="{Binding ClearEngEntryCommand}"></Button>
+                </StackLayout>
+                
+                <Entry x:Name="descriptionEditor" Placeholder="Description" FontSize="Small" 
+                       Text="{Binding Description}"
+                       IsEnabled="{Binding IsDescriptionEntryEnabled}"
+                       Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"></Entry>
+            </Grid>
+            <Button x:Name="AddButton" Text="{Binding ButtonText}" 
+                    IsEnabled="{Binding IsButtonEnabled}"
+                    Clicked="AddButton_Clicked"></Button>
+            <ListView x:Name="wordList" ItemsSource="{Binding Words}" SelectedItem="{Binding SelectedItem, Mode=OneWay}"
+                      local:ItemTappedAttached.Command="{Binding WordDetailCommand}"
+                      ItemSelected="wordList_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <Grid Margin="10,0,10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding Eng}" FontSize="Medium" Grid.Column="0"></Label>
+                                    <Label Text="{Binding Rus}" FontSize="Medium" Grid.Column="1"></Label>
+                                    <Label Text="{Binding Description}" FontSize="Small" Grid.Column="2"></Label>
+                                </Grid>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

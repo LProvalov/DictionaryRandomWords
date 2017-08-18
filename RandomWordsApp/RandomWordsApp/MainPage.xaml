@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:system="clr-namespace:System;assembly=System.Runtime"
+             xmlns:local="clr-namespace:RandomWordsApp;assembly=RandomWordsApp"
+             x:Class="RandomWordsApp.MainPage"
+             Title="Main">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="ErrorEntryColor">#FF0000</Color>
+            <Color x:Key="SuccessEntryColor">#00FF00</Color>
+            <Color x:Key="DefaultEntryColor">#BBBBBB</Color>
+
+            <Style x:Key="ErrorInput" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{DynamicResource ErrorEntryColor}"></Setter>
+            </Style>
+            <Style x:Key="SuccessInput" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{DynamicResource SuccessEntryColor}"></Setter>
+            </Style>
+            <Style x:Key="DefaultInput" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{DynamicResource DefaultEntryColor}"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="220"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackLayout x:Name="wordStack" Grid.Row="0" Orientation="Vertical"
+                     VerticalOptions="Fill">
+            
+                <StackLayout Orientation="Horizontal"
+                    VerticalOptions="Fill" HorizontalOptions="Fill" BackgroundColor="LightGray">
+                    
+                    <Button x:Name="prevButton" HeightRequest="40" WidthRequest="85" 
+                            HorizontalOptions="StartAndExpand"
+                            Text="Prev" TextColor="White" Command="{Binding PrevPartCommand}"></Button>
+                    
+                    <Label x:Name="partNumberLabel"
+                       Text="{Binding NumberOfPartString}" Margin="10, 5, 10, 5" TextColor="Black"
+                       FontSize="Small" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"></Label>
+                    
+                    <Button x:Name="nextButton" HeightRequest="40" WidthRequest="85"
+                            HorizontalOptions="EndAndExpand"
+                            Text="Next" TextColor="White" Command="{Binding NextPartCommand}"></Button>
+                    
+                </StackLayout>
+
+                <StackLayout>
+                    <Label x:Name="wordLable" Text="{Binding Word}" Margin="10,10,10,50" 
+                               FontSize="Large" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+                    <Label x:Name="descriptionLable" Text="{Binding Description}" Margin="10,0,10,50"
+                               FontSize="Medium" />
+                </StackLayout>
+        </StackLayout>
+
+        <Entry x:Name="wordEntry" Grid.Row="1" VerticalOptions="Start"
+               Text="{Binding WordEntryText}" Completed="OnComplitedHandler"
+               Style="{DynamicResource wordEntryStyle}"
+               Placeholder="Type word here...">
+            <!--<Entry.Behaviors>
+                <local:EventToCommandBehavior EventName="Text" ></local:EventToCommandBehavior>
+            </Entry.Behaviors>-->
+        </Entry>
+
+        <!--<StackLayout Orientation="Horizontal" Grid.Row="2">
+            <Image Source="{local:ImageResource RandomWordsApp.Images.gear.png}"
+                x:Name="gearImage" Margin="5" WidthRequest="30" HeightRequest="30" BackgroundColor="AliceBlue">
+                <Image.Behaviors>
+                    <local:ImageButtonBehavior OnClickEvent="ImageButtonBehavior_OnClickEvent"></local:ImageButtonBehavior>
+                </Image.Behaviors>
+            </Image>
+        </StackLayout>-->
+    </Grid>
+</ContentPage>
